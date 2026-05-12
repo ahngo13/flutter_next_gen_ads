@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - NativeAdPreloader for pool-based native ad delivery.
 - iOS support (waiting for GMA Next-Gen iOS SDK GA).
 
+## [0.1.2] - 2026-05-12
+
+### Changed
+
+- Redesigned README "Sponsor" section with a GitHub Sponsors badge,
+  concrete funding targets (0.2.0 Native ads, iOS GA, SDK upgrades),
+  and a maintainer signature. Pure docs change — no API impact.
+
 ## [0.1.1] - 2026-05-12
 
 ### Changed

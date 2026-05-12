@@ -267,9 +267,21 @@ before loading any ads. Find your device's hash in logcat — search for
 
 ## Sponsor
 
-If this package saved you time and you want to support continued maintenance,
-you can [sponsor on GitHub](https://github.com/sponsors/ahngo13). It directly
-funds work on the 0.2.0 native ads release and ongoing bug fixes.
+<p align="center">
+  <a href="https://github.com/sponsors/ahngo13">
+    <img src="https://img.shields.io/badge/Sponsor%20on%20GitHub-%E2%9D%A4-ea4aaa?style=for-the-badge&logo=github-sponsors&logoColor=white" alt="Sponsor on GitHub" />
+  </a>
+</p>
+
+If this package saved you a day of work, consider sponsoring a day of mine.
+
+Your sponsorship funds:
+
+- **0.2.0 Native ads** — in active development
+- **iOS support** — ready to ship on GMA Next-Gen iOS GA
+- **Bug fixes & SDK upgrades** — keeping pace with Google releases
+
+Built and maintained by [**Hamlet Shu**](https://github.com/ahngo13) — an independent Flutter developer based in Seoul, Korea.
 
 ## License
 
