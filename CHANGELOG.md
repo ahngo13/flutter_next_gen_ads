@@ -13,13 +13,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - NativeAdPreloader for pool-based native ad delivery.
 - iOS support (waiting for GMA Next-Gen iOS SDK GA).
 
-## [0.1.2] - 2026-05-12
+## [0.1.3] - 2026-05-12
 
 ### Added
 
 - Localized README in Korean, Japanese, and Simplified Chinese
   (`README.ko.md`, `README.ja.md`, `README.zh-CN.md`). Language switcher
   added at the top of every README variant.
+
+## [0.1.2] - 2026-05-12
 
 ### Changed
 
