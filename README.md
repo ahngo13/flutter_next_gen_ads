@@ -265,6 +265,12 @@ allocate more emulator memory.
 before loading any ads. Find your device's hash in logcat — search for
 `Use RequestConfiguration.Builder.setTestDeviceIds`.
 
+## Sponsor
+
+If this package saved you time and you want to support continued maintenance,
+you can [sponsor on GitHub](https://github.com/sponsors/ahngo13). It directly
+funds work on the 0.2.0 native ads release and ongoing bug fixes.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).

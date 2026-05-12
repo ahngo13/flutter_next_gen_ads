@@ -4,6 +4,8 @@ version: 0.1.0
 homepage: https://github.com/ahngo13/flutter_next_gen_ads
 repository: https://github.com/ahngo13/flutter_next_gen_ads
 issue_tracker: https://github.com/ahngo13/flutter_next_gen_ads/issues
+funding:
+  - https://github.com/sponsors/ahngo13
 topics:
   - admob
   - ads
