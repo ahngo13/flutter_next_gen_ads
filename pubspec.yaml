@@ -13,6 +13,10 @@ topics:
   - android
   - monetization
 
+screenshots:
+  - description: "Example app on Android — preloaded interstitial / rewarded / app-open buttons with an adaptive AdMob banner anchored at the bottom."
+    path: screenshots/screenshot0.png
+
 environment:
   sdk: ^3.10.7
   flutter: ">=3.10.0"

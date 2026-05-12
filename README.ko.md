@@ -16,6 +16,10 @@ Android에서 배너, 전면, 보상형 전면, 앱 오프닝 광고를 지원�
 > 서드파티 래퍼입니다. *AdMob*, *Google Mobile Ads*, *Flutter*는 Google LLC의
 > 상표입니다.
 
+<p align="center">
+  <img src="screenshots/screenshot0.png" alt="Android 예제 앱 — 프리로드된 전면/보상형/앱 오프닝 버튼과 하단의 적응형 AdMob 배너" width="280" />
+</p>
+
 ## 왜 이 패키지인가요
 
 공식 `google_mobile_ads` 플러그인은 아직 **레거시** GMA SDK를 기반으로 합니다.

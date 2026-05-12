@@ -16,6 +16,10 @@ Interstitial, Rewarded Interstitial, and App Open ads on Android.
 > trademarks of Google LLC. This plugin wraps the publicly distributed GMA
 > Next-Gen SDK for convenience.
 
+<p align="center">
+  <img src="screenshots/screenshot0.png" alt="flutter_next_gen_ads example app on Android — preloaded interstitial / rewarded / app-open buttons with an adaptive AdMob banner at the bottom" width="280" />
+</p>
+
 ## Why this package?
 
 The official `google_mobile_ads` plugin still uses the **legacy** GMA SDK at

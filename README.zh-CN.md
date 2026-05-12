@@ -16,6 +16,10 @@
 > *AdMob*、*Google Mobile Ads*、*Flutter* 均为 Google LLC 的商标,本插件仅是
 > 对公开发布的 GMA Next-Gen SDK 做了一层封装,方便在 Flutter 中调用。
 
+<p align="center">
+  <img src="screenshots/screenshot0.png" alt="Android 示例应用 —— 预加载好的插屏 / 激励 / 应用开屏按钮,以及底部的自适应 AdMob 横幅" width="280" />
+</p>
+
 ## 为什么用这个包
 
 官方 `google_mobile_ads` 插件目前仍基于 **旧版** GMA SDK。如果你希望在

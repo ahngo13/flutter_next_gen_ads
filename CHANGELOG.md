@@ -20,6 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Localized README in Korean, Japanese, and Simplified Chinese
   (`README.ko.md`, `README.ja.md`, `README.zh-CN.md`). Language switcher
   added at the top of every README variant.
+- Example app screenshot (`screenshots/screenshot0.png`) embedded near
+  the top of every README and registered in `pubspec.yaml`'s
+  `screenshots:` field so it surfaces in pub.dev's package gallery.
 
 ### Changed
 

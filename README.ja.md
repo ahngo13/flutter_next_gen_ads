@@ -17,6 +17,10 @@ Android でバナー、インタースティシャル、リワードインター
 > ⚠️ **非公式パッケージです。** Google との提携・出資・公認関係は一切ありません。
 > *AdMob*、*Google Mobile Ads*、*Flutter* は Google LLC の商標です。
 
+<p align="center">
+  <img src="screenshots/screenshot0.png" alt="Android のサンプルアプリ — プリロード済みのインタースティシャル / リワード / アプリオープン ボタンと、画面下部のアダプティブ AdMob バナー" width="280" />
+</p>
+
 ## なぜこのパッケージか
 
 公式の `google_mobile_ads` プラグインは現在も **レガシー** GMA SDK ベースです。
