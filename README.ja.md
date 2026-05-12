@@ -5,46 +5,46 @@
 
 [English](README.md) · [한국어](README.ko.md) · **日本語** · [简体中文](README.zh-CN.md)
 
-**Google Mobile Ads (GMA) Next-Gen SDK 1.0+** をラップした Flutter プラグイン
-— Android でバナー / インタースティシャル / リワード インタースティシャル /
-アプリ オープン広告に対応します。
+**Google Mobile Ads (GMA) Next-Gen SDK 1.0+** 向けの Flutter プラグインです。
+Android でバナー、インタースティシャル、リワードインタースティシャル、
+アプリオープン広告に対応します。
 
-> ⚠️ **Android 専用。** GMA Next-Gen SDK は現時点で Android のみ GA です。
-> iOS は [`google_mobile_ads`](https://pub.dev/packages/google_mobile_ads) と
-> 組み合わせて利用してください。
+> ⚠️ **Android 専用です。** GMA Next-Gen SDK は現時点で Android のみ正式
+> リリース(GA)されています。iOS は
+> [`google_mobile_ads`](https://pub.dev/packages/google_mobile_ads) との
+> 併用をおすすめします。
 >
-> ⚠️ **非公式パッケージ。** 本パッケージは Google との提携・スポンサー・公認
-> 関係はありません。*AdMob*、*Google Mobile Ads*、*Flutter* は Google LLC の
-> 商標です。本プラグインは一般公開されている GMA Next-Gen SDK を利便性のため
-> ラップしているだけです。
+> ⚠️ **非公式パッケージです。** Google との提携・出資・公認関係は一切ありません。
+> *AdMob*、*Google Mobile Ads*、*Flutter* は Google LLC の商標です。
 
-## このパッケージを選ぶ理由
+## なぜこのパッケージか
 
-公式の `google_mobile_ads` プラグインは現時点で **レガシー** の GMA SDK を
-使用しています。Android で Next-Gen SDK の新機能 — 特にレガシー SDK には無い
+公式の `google_mobile_ads` プラグインは現在も **レガシー** GMA SDK ベースです。
+Next-Gen SDK の新機能 — 特にレガシー SDK には存在しない
 **`InterstitialAdPreloader`** / **`RewardedInterstitialAdPreloader`** の
-プール型プリローダー — を今すぐ使いたい場合、これが最短ルートです。
+プール型プリローダー — を Android で今すぐ使いたい場合、最短ルートは
+本パッケージです。
 
-## 動作要件
+## 動作環境
 
 | | |
 |---|---|
-| Flutter | ≥ 3.10 |
-| Dart | ≥ 3.10.7 |
+| Flutter | 3.10 以上 |
+| Dart | 3.10.7 以上 |
 | Android `compileSdk` | **35** |
 | Android `minSdk` | **24** |
-| Kotlin | ≥ 1.9 |
+| Kotlin | 1.9 以上 |
 
 ## インストール
 
-`pubspec.yaml` に追加:
+`pubspec.yaml` に依存関係を追加します。
 
 ```yaml
 dependencies:
   flutter_next_gen_ads: ^0.1.0
 ```
 
-`android/app/src/main/AndroidManifest.xml` に AdMob アプリ ID を記載:
+`android/app/src/main/AndroidManifest.xml` に AdMob のアプリ ID を記載します。
 
 ```xml
 <application ...>
@@ -55,12 +55,13 @@ dependencies:
 </application>
 ```
 
-> ローカル開発時は AdMob のテスト ID `ca-app-pub-3940256099942544~3347511713`
-> を使ってください。リリース前に必ず実際の ID に置き換えること。
+> 開発時は AdMob のテストアプリ ID
+> `ca-app-pub-3940256099942544~3347511713` を使ってください。リリース前に
+> 必ず本番 ID へ差し替えます。
 
 ## クイックスタート
 
-### アプリ起動時に 1 回だけ初期化
+### アプリ起動時に 1 度だけ初期化
 
 ```dart
 import 'package:flutter_next_gen_ads/flutter_next_gen_ads.dart';
@@ -69,8 +70,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.initialize(); // AndroidManifest から appId を自動取得
 
-  // 開発中は必須: 自分のデバイスをテストデバイスとして登録し、
-  // 誤って実広告が配信されて AdMob ポリシー違反になるのを防ぐ。
+  // 開発中は必ずテストデバイスを登録してください。
+  // 本番広告が誤って配信されると AdMob のポリシー違反になります。
   await MobileAds.setRequestConfiguration(const RequestConfiguration(
     testDeviceIds: ['YOUR_DEVICE_HASH'], // logcat でハッシュを確認
   ));
@@ -91,7 +92,7 @@ SizedBox(
 )
 ```
 
-または `height:` パラメータで簡潔に:
+`height` パラメータを使うとより簡潔に書けます。
 
 ```dart
 const BannerAdView(
@@ -117,7 +118,7 @@ try {
 }
 ```
 
-### リワード インタースティシャル広告
+### リワードインタースティシャル広告
 
 ```dart
 try {
@@ -126,7 +127,7 @@ try {
   );
   await ad.show(
     onUserEarnedReward: (reward) {
-      grantCoins(reward.amount); // reward.type も利用可
+      grantCoins(reward.amount); // reward.type も利用可能
     },
   );
 } on AdLoadException catch (e) {
@@ -134,7 +135,7 @@ try {
 }
 ```
 
-### アプリ オープン広告 (4 時間の有効期限処理付き)
+### アプリオープン広告 (4 時間の有効期限つき)
 
 ```dart
 class _RootState extends State<RootWidget> with WidgetsBindingObserver {
@@ -170,19 +171,19 @@ class _RootState extends State<RootWidget> with WidgetsBindingObserver {
 }
 ```
 
-### プリローダー プール (Next-Gen 限定)
+### プリローダープール (Next-Gen 専用)
 
-インタースティシャル / リワード広告をプールに事前にロードしておくと、
-`show()` 時にネットワーク待ちなく即座に表示できます。
+インタースティシャルやリワード広告をプールにあらかじめ用意しておくと、
+`show()` 時にネットワーク往復を待たず即座に表示できます。
 
 ```dart
-// 起動時: プールを満たす
+// 起動時にプールを満たす
 await InterstitialAdPreloader.start(
   adUnitId: 'ca-app-pub-XXX/YYY',
   bufferSize: 2,
 );
 
-// 表示時: プールから取得、空ならフォールバックで即時ロード
+// 表示時にプールから取り出す。空ならその場でロードにフォールバック
 InterstitialAd? ad = await InterstitialAdPreloader.poll(
   adUnitId: 'ca-app-pub-XXX/YYY',
 );
@@ -190,7 +191,7 @@ ad ??= await InterstitialAd.load(adUnitId: 'ca-app-pub-XXX/YYY');
 await ad.show();
 ```
 
-### 広告ターゲティング ヒント
+### ターゲティング指定
 
 ```dart
 const request = AdRequest(
@@ -205,10 +206,10 @@ final ad = await InterstitialAd.load(
 );
 ```
 
-## クロスプラットフォーム利用 (Android + iOS)
+## クロスプラットフォーム対応 (Android + iOS)
 
-このプラグインは Android 専用です。同じコードベースで iOS にも対応するには、
-`google_mobile_ads` に条件分岐でフォールバックします:
+本プラグインは Android 専用です。同じコードベースで iOS にも対応するには、
+`google_mobile_ads` へ条件分岐でフォールバックします。
 
 ```dart
 import 'dart:io' show Platform;
@@ -225,19 +226,20 @@ Future<void> showInterstitial(String adUnitId) async {
 }
 ```
 
-`BannerAdView` ウィジェットは非 Android プラットフォームで自動的に
-`placeholder` に縮退するので、レイアウトは崩れません。
+`BannerAdView` ウィジェットは Android 以外のプラットフォームで自動的に
+`placeholder` へフォールバックするため、レイアウトが崩れることはありません。
 
-## API サーフェス
+## 公開 API
 
-`package:flutter_next_gen_ads/flutter_next_gen_ads.dart` から re-export:
+`package:flutter_next_gen_ads/flutter_next_gen_ads.dart` から re-export
+されているものです。
 
 - `MobileAds` — `initialize()`, `getVersion()`, `setRequestConfiguration()`
-- `RequestConfiguration` + 列挙型 (`TagForChildDirectedTreatment`,
+- `RequestConfiguration` と関連 enum (`TagForChildDirectedTreatment`,
   `TagForUnderAgeOfConsent`, `MaxAdContentRating`,
   `PublisherPrivacyPersonalizationState`)
 - `BannerAdView`, `BannerAdListener`, `AdSize` (`anchored`, `largeAnchored`,
-  `inline` ファクトリ)
+  `inline` の各ファクトリ)
 - `InterstitialAd`, `InterstitialAdListener`
 - `RewardedInterstitialAd`, `RewardedInterstitialAdListener`, `RewardItem`
 - `AppOpenAd`, `AppOpenAdListener`
@@ -247,26 +249,28 @@ Future<void> showInterstitial(String adUnitId) async {
 ## ロードマップ
 
 - **0.2.0** — ネイティブ広告 (`NativeAd`, `NativeAdView`,
-  `NativeAdPreloader`)。
-- **0.3.0+** — iOS 対応 (GMA Next-Gen iOS SDK が GA に到達次第)。
+  `NativeAdPreloader`)
+- **0.3.0+** — iOS 対応 (GMA Next-Gen iOS SDK の GA 後)
 
 ## トラブルシューティング
 
-**バナーが空白になる。** `BannerAdView` には親から明示的な有界の制約が必要です。
-`SizedBox(height: …)` で囲むか、`height:` パラメータを渡してください — 制約が
-無いと Flutter は PlatformView の生成を黙ってスキップします。
+**バナーが空白で表示される。** `BannerAdView` は親から明示的なサイズ制約を
+受け取る必要があります。`SizedBox(height: …)` で囲むか、`height` パラメータを
+渡してください。制約がないと Flutter は PlatformView の生成を無言でスキップ
+します。
 
-**`AdLoadException(code: 3, message: No fill)`。** 現在のリクエストに対する
-AdMob 在庫がありません。ほとんどのテスト広告ユニットは必ず広告を返すので、
-リトライするか広告ユニット ID を確認してください。
+**`AdLoadException(code: 3, message: No fill)` が発生する。** AdMob 側に
+このリクエストへ配信できる在庫がない状態です。テスト広告ユニットは通常常に
+レスポンスを返すので、しばらく待ってリトライするか、広告ユニット ID を
+確認してください。
 
-**エミュレータでアプリが起動直後に落ちる。** GMA SDK + WebView は実行時に
-約 300 MB を消費します。RAM 4 GB 未満のエミュレータでは OOM の可能性が
-あります。実機を使うか、エミュレータのメモリを増やしてください。
+**エミュレータでアプリが起動直後に強制終了する。** GMA SDK と WebView は
+ランタイムで約 300MB 消費します。RAM 4GB 未満のエミュレータでは OOM で
+落ちることがあります。実機を使うか、エミュレータのメモリを増やしてください。
 
-**実機で実広告が表示される。** 広告ロード前に
+**実機で本番広告が表示されてしまう。** 広告ロード前に
 `MobileAds.setRequestConfiguration(RequestConfiguration(testDeviceIds: [...]))`
-を呼んでいるか確認してください。デバイス ハッシュは logcat で
+を呼んでいるか確認してください。デバイスのハッシュは logcat で
 `Use RequestConfiguration.Builder.setTestDeviceIds` を検索すると見つかります。
 
 ## スポンサー
@@ -277,18 +281,18 @@ AdMob 在庫がありません。ほとんどのテスト広告ユニットは�
   </a>
 </p>
 
-このパッケージが 1 日分の作業を節約してくれたなら、私の 1 日分の作業を
+このパッケージが 1 日分の作業を肩代わりしてくれたなら、私の 1 日分の作業を
 スポンサーしてみませんか。
 
-スポンサー費用の使途:
+スポンサー費用の使いみち:
 
-- **0.2.0 ネイティブ広告** — 開発中
-- **バグ修正 & SDK アップグレード** — Google のリリースに追随
-- **Issue & PR 対応** — 数週間ではなく数日で返信
+- **0.2.0 ネイティブ広告** — 現在開発中
+- **バグ修正 & SDK アップグレード** — Google のリリースに継続的に追従
+- **Issue と PR の対応** — 数週間ではなく数日でレスポンス
 
-メンテナー: [**Hamlet Shu**](https://github.com/ahngo13) — 韓国・ソウル拠点の
-独立系 Flutter デベロッパー。
+メンテナーは韓国・ソウル在住の独立系 Flutter 開発者
+[**Hamlet Shu**](https://github.com/ahngo13) です。
 
 ## ライセンス
 
-MIT — [LICENSE](LICENSE) を参照。
+MIT。詳しくは [LICENSE](LICENSE) を参照してください。

@@ -5,44 +5,44 @@
 
 [English](README.md) · [한국어](README.ko.md) · [日本語](README.ja.md) · **简体中文**
 
-封装 **Google Mobile Ads (GMA) Next-Gen SDK 1.0+** 的 Flutter 插件 —
-在 Android 上提供横幅 / 插屏 / 激励插屏 / 应用开屏广告。
+面向 **Google Mobile Ads (GMA) Next-Gen SDK 1.0+** 的 Flutter 插件,在 Android
+上支持横幅、插屏、激励插屏与应用开屏广告。
 
-> ⚠️ **仅支持 Android。** GMA Next-Gen SDK 目前仅在 Android 上正式发布 (GA)。
-> iOS 请配合 [`google_mobile_ads`](https://pub.dev/packages/google_mobile_ads)
-> 一起使用。
+> ⚠️ **仅支持 Android。** GMA Next-Gen SDK 目前只在 Android 上正式发布(GA),
+> iOS 端建议配合
+> [`google_mobile_ads`](https://pub.dev/packages/google_mobile_ads) 一起使用。
 >
-> ⚠️ **非官方。** 本包未获 Google 关联、认可或赞助。
-> *AdMob*、*Google Mobile Ads*、*Flutter* 是 Google LLC 的商标。
-> 本插件只是为便于使用而封装公开发布的 GMA Next-Gen SDK。
+> ⚠️ **非官方包。** 本包与 Google 没有任何合作、赞助或官方授权关系。
+> *AdMob*、*Google Mobile Ads*、*Flutter* 均为 Google LLC 的商标,本插件仅是
+> 对公开发布的 GMA Next-Gen SDK 做了一层封装,方便在 Flutter 中调用。
 
-## 为什么选这个包?
+## 为什么用这个包
 
-官方 `google_mobile_ads` 插件目前仍使用 **旧版** GMA SDK。若希望在 Android 上
-立刻用到 Next-Gen SDK 的新功能 — 尤其是旧版 SDK 缺失的
+官方 `google_mobile_ads` 插件目前仍基于 **旧版** GMA SDK。如果你希望在
+Android 上直接用到 Next-Gen SDK 的新能力 —— 尤其是旧版 SDK 没有的
 **`InterstitialAdPreloader`** / **`RewardedInterstitialAdPreloader`**
-基于池的预加载器 — 本包是最短路径。
+预加载池 —— 这个包是最直接的选择。
 
 ## 环境要求
 
 | | |
 |---|---|
-| Flutter | ≥ 3.10 |
-| Dart | ≥ 3.10.7 |
+| Flutter | 3.10 及以上 |
+| Dart | 3.10.7 及以上 |
 | Android `compileSdk` | **35** |
 | Android `minSdk` | **24** |
-| Kotlin | ≥ 1.9 |
+| Kotlin | 1.9 及以上 |
 
 ## 安装
 
-在 `pubspec.yaml` 中添加:
+在 `pubspec.yaml` 中添加依赖:
 
 ```yaml
 dependencies:
   flutter_next_gen_ads: ^0.1.0
 ```
 
-将 AdMob 应用 ID 写入 `android/app/src/main/AndroidManifest.xml`:
+在 `android/app/src/main/AndroidManifest.xml` 中配置 AdMob 应用 ID:
 
 ```xml
 <application ...>
@@ -53,12 +53,12 @@ dependencies:
 </application>
 ```
 
-> 本地开发请使用 AdMob 测试 ID `ca-app-pub-3940256099942544~3347511713`。
-> 发布前必须替换为实际 ID。
+> 本地开发时建议先使用 AdMob 的测试应用 ID
+> `ca-app-pub-3940256099942544~3347511713`,正式发布前务必替换为线上 ID。
 
-## 快速开始
+## 快速上手
 
-### 应用启动时初始化一次
+### 启动时初始化一次即可
 
 ```dart
 import 'package:flutter_next_gen_ads/flutter_next_gen_ads.dart';
@@ -67,10 +67,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.initialize(); // 自动从 AndroidManifest 读取 appId
 
-  // 开发阶段必做: 将自己的设备注册为测试设备,
-  // 防止真实广告意外送达并触发 AdMob 政策违规。
+  // 开发阶段务必把自己的设备加入测试设备名单,
+  // 否则真实广告意外曝光会触发 AdMob 政策违规。
   await MobileAds.setRequestConfiguration(const RequestConfiguration(
-    testDeviceIds: ['YOUR_DEVICE_HASH'], // 在 logcat 中获取设备哈希
+    testDeviceIds: ['YOUR_DEVICE_HASH'], // 通过 logcat 获取设备哈希
   ));
 
   runApp(const MyApp());
@@ -89,7 +89,7 @@ SizedBox(
 )
 ```
 
-或使用便捷的 `height:` 参数:
+也可以直接传 `height` 参数,写法更简洁:
 
 ```dart
 const BannerAdView(
@@ -132,7 +132,7 @@ try {
 }
 ```
 
-### 应用开屏广告 (含 4 小时过期处理)
+### 应用开屏广告(带 4 小时有效期处理)
 
 ```dart
 class _RootState extends State<RootWidget> with WidgetsBindingObserver {
@@ -168,19 +168,19 @@ class _RootState extends State<RootWidget> with WidgetsBindingObserver {
 }
 ```
 
-### 预加载池 (Next-Gen 独有)
+### 预加载池(Next-Gen 独有)
 
-将插屏 / 激励广告预先加载到池中, `show()` 调用时即可立即展示, 无需等待
+把插屏、激励广告提前放进预加载池,调用 `show()` 时就能立刻展示,无需等待
 网络往返。
 
 ```dart
-// 启动时: 填充池
+// 启动时填充缓冲池
 await InterstitialAdPreloader.start(
   adUnitId: 'ca-app-pub-XXX/YYY',
   bufferSize: 2,
 );
 
-// 展示时: 从池中取广告; 池空时回退到即时加载
+// 展示时先从池里取,池空就回退到即时加载
 InterstitialAd? ad = await InterstitialAdPreloader.poll(
   adUnitId: 'ca-app-pub-XXX/YYY',
 );
@@ -188,7 +188,7 @@ ad ??= await InterstitialAd.load(adUnitId: 'ca-app-pub-XXX/YYY');
 await ad.show();
 ```
 
-### 广告定向参数
+### 定向参数
 
 ```dart
 const request = AdRequest(
@@ -203,9 +203,9 @@ final ad = await InterstitialAd.load(
 );
 ```
 
-## 跨平台使用 (Android + iOS)
+## 跨平台用法(Android + iOS)
 
-本插件仅支持 Android。若需在同一份代码中也支持 iOS, 请条件性地回退到
+本插件只支持 Android。如果同一份代码库还需要兼容 iOS,可以条件分支到
 `google_mobile_ads`:
 
 ```dart
@@ -217,24 +217,25 @@ Future<void> showInterstitial(String adUnitId) async {
     final ad = await InterstitialAd.load(adUnitId: adUnitId);
     await ad.show();
   } else if (Platform.isIOS) {
-    // 使用 google_mobile_ads (需单独配置)
+    // 使用 google_mobile_ads(需另行配置)
     // ...
   }
 }
 ```
 
-`BannerAdView` 在非 Android 平台会自动退化为 `placeholder`, 布局不会破坏。
+`BannerAdView` 在非 Android 平台会自动降级为 `placeholder`,布局不会因此
+错乱。
 
-## API 一览
+## 公开 API
 
-从 `package:flutter_next_gen_ads/flutter_next_gen_ads.dart` re-export:
+从 `package:flutter_next_gen_ads/flutter_next_gen_ads.dart` 统一导出:
 
-- `MobileAds` — `initialize()`、`getVersion()`、`setRequestConfiguration()`
-- `RequestConfiguration` 及枚举 (`TagForChildDirectedTreatment`、
+- `MobileAds` —— `initialize()`、`getVersion()`、`setRequestConfiguration()`
+- `RequestConfiguration` 及相关枚举(`TagForChildDirectedTreatment`、
   `TagForUnderAgeOfConsent`、`MaxAdContentRating`、
   `PublisherPrivacyPersonalizationState`)
-- `BannerAdView`、`BannerAdListener`、`AdSize` (`anchored`、`largeAnchored`、
-  `inline` 工厂方法)
+- `BannerAdView`、`BannerAdListener`、`AdSize`(`anchored`、`largeAnchored`、
+  `inline` 三个工厂方法)
 - `InterstitialAd`、`InterstitialAdListener`
 - `RewardedInterstitialAd`、`RewardedInterstitialAdListener`、`RewardItem`
 - `AppOpenAd`、`AppOpenAdListener`
@@ -243,25 +244,27 @@ Future<void> showInterstitial(String adUnitId) async {
 
 ## 路线图
 
-- **0.2.0** — 原生广告 (`NativeAd`、`NativeAdView`、`NativeAdPreloader`)。
-- **0.3.0+** — iOS 支持 (待 GMA Next-Gen iOS SDK GA 之后)。
+- **0.2.0** —— 原生广告(`NativeAd`、`NativeAdView`、`NativeAdPreloader`)
+- **0.3.0+** —— iOS 支持(等待 GMA Next-Gen iOS SDK 正式发布后启动)
 
-## 故障排查
+## 常见问题
 
-**横幅显示为空白。** `BannerAdView` 需要父级提供明确的有界约束。请用
-`SizedBox(height: …)` 包裹, 或传入 `height:` 参数 — 没有约束时 Flutter
-会静默跳过 PlatformView 的创建。
+**横幅位置是一片空白。** `BannerAdView` 必须从父级拿到明确的尺寸约束。请用
+`SizedBox(height: …)` 包裹,或者直接传 `height` 参数。没有约束时,Flutter
+会悄悄跳过 PlatformView 的创建。
 
-**`AdLoadException(code: 3, message: No fill)`。** AdMob 当前没有可填充
-该请求的库存。大多数测试广告单元始终会返回广告, 请重试或核对广告单元 ID。
+**报 `AdLoadException(code: 3, message: No fill)`。** AdMob 当前没有能填充
+这次请求的广告库存。测试广告位通常总会返回广告,稍后重试或检查广告位
+ID 即可。
 
-**应用在模拟器中启动后被杀。** GMA SDK + WebView 在运行时约占 300 MB。
-RAM 不足 4 GB 的模拟器可能 OOM。请使用真机或为模拟器分配更多内存。
+**模拟器上 App 一启动就被系统杀掉。** GMA SDK 加上 WebView 在运行时大概占
+300MB 内存。RAM 不足 4GB 的模拟器很容易触发 OOM,建议换真机或者给模拟器
+分配更多内存。
 
-**真机上看到的是真实广告而非测试广告。** 请确认在加载广告之前调用了
+**真机上看到的是真实广告而不是测试广告。** 请确认在加载广告之前调用了
 `MobileAds.setRequestConfiguration(RequestConfiguration(testDeviceIds: [...]))`。
-设备哈希可在 logcat 中搜索 `Use RequestConfiguration.Builder.setTestDeviceIds`
-找到。
+设备哈希可以在 logcat 里搜索关键字
+`Use RequestConfiguration.Builder.setTestDeviceIds` 找到。
 
 ## 赞助
 
@@ -271,17 +274,17 @@ RAM 不足 4 GB 的模拟器可能 OOM。请使用真机或为模拟器分配更
   </a>
 </p>
 
-如果这个包帮你节省了一天的工作, 不妨赞助我一天的工作。
+如果这个包帮你省下了一天的工作量,不妨也赞助我一天的工作。
 
-赞助款用于:
+赞助款项会用于:
 
-- **0.2.0 原生广告** — 开发中
-- **缺陷修复 & SDK 升级** — 跟进 Google 的版本节奏
-- **Issue 与 PR 跟进** — 以天为单位响应, 而非周
+- **0.2.0 原生广告** —— 正在开发
+- **缺陷修复与 SDK 升级** —— 紧跟 Google 的版本节奏
+- **Issue 与 PR 跟进** —— 以天为单位回应,而不是拖几周
 
-由 [**Hamlet Shu**](https://github.com/ahngo13) 构建并维护 —
-来自韩国首尔的独立 Flutter 开发者。
+由来自韩国首尔的独立 Flutter 开发者
+[**Hamlet Shu**](https://github.com/ahngo13) 构建并维护。
 
 ## 许可证
 
-MIT — 详见 [LICENSE](LICENSE)。
+MIT,详见 [LICENSE](LICENSE)。
