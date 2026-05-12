@@ -1,0 +1,32 @@
+name: flutter_next_gen_ads
+description: "Flutter wrapper for Google's GMA Next-Gen SDK 1.0+. Banner, interstitial, rewarded interstitial, and app open ads on Android."
+version: 0.1.0
+homepage: https://github.com/siwooeo/flutter_next_gen_ads
+repository: https://github.com/siwooeo/flutter_next_gen_ads
+issue_tracker: https://github.com/siwooeo/flutter_next_gen_ads/issues
+topics:
+  - admob
+  - ads
+  - mobile-ads
+  - android
+  - monetization
+
+environment:
+  sdk: ^3.10.7
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.siwooeo.flutter_next_gen_ads
+        pluginClass: NextGenAdsPlugin
