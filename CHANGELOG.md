@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.2] - 2026-05-12
 
+### Added
+
+- Localized README in Korean, Japanese, and Simplified Chinese
+  (`README.ko.md`, `README.ja.md`, `README.zh-CN.md`). Language switcher
+  added at the top of every README variant.
+
 ### Changed
 
 - Redesigned README "Sponsor" section with a GitHub Sponsors badge,
