@@ -280,8 +280,8 @@ Future<void> showInterstitial(String adUnitId) async {
 후원금은 다음에 사용됩니다:
 
 - **0.2.0 네이티브 광고** — 현재 개발 중
-- **iOS 지원** — GMA Next-Gen iOS GA 즉시 대응
 - **버그 수정 & SDK 업그레이드** — Google 릴리스에 발맞춰 유지보수
+- **이슈 & PR 트리아지** — 몇 주가 아닌 며칠 안에 응답
 
 [**Hamlet Shu**](https://github.com/ahngo13) 가 만들고 유지보수합니다 —
 대한민국 서울 기반 1인 Flutter 개발자.

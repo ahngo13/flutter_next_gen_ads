@@ -276,8 +276,8 @@ RAM 不足 4 GB 的模拟器可能 OOM。请使用真机或为模拟器分配更
 赞助款用于:
 
 - **0.2.0 原生广告** — 开发中
-- **iOS 支持** — GMA Next-Gen iOS GA 时立即发布
 - **缺陷修复 & SDK 升级** — 跟进 Google 的版本节奏
+- **Issue 与 PR 跟进** — 以天为单位响应, 而非周
 
 由 [**Hamlet Shu**](https://github.com/ahngo13) 构建并维护 —
 来自韩国首尔的独立 Flutter 开发者。

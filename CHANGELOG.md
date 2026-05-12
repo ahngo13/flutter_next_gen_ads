@@ -21,6 +21,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`README.ko.md`, `README.ja.md`, `README.zh-CN.md`). Language switcher
   added at the top of every README variant.
 
+### Changed
+
+- Removed "iOS support" from the Sponsor section's funding targets.
+  GMA Next-Gen iOS SDK is not yet GA and Google has not announced a
+  date — sponsorship copy should describe work the maintainer can
+  actually do, not external dependencies. iOS is still documented in
+  the Roadmap as 0.3.0+ (pending GMA Next-Gen iOS GA).
+
 ## [0.1.2] - 2026-05-12
 
 ### Changed
