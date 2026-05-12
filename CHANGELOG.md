@@ -13,6 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - NativeAdPreloader for pool-based native ad delivery.
 - iOS support (waiting for GMA Next-Gen iOS SDK GA).
 
+## [0.1.1] - 2026-05-12
+
+### Changed
+
+- Removed non-Android example scaffolds (`ios`, `macos`, `linux`, `windows`,
+  `web`) so the example reflects the plugin's Android-only scope. Cuts
+  published package size from 284 KB to 31 KB.
+- Added GitHub Sponsors link via `pubspec.yaml` `funding:` field and
+  `.github/FUNDING.yml`. Funding link is now surfaced on the pub.dev page.
+
 ## [0.1.0] - 2026-05-12
 
 Initial release. Wraps the GMA Next-Gen SDK 1.0.1 for Android.
